@@ -1,0 +1,5 @@
+# rental.planetarysound.com → serves /rental.html
+# Status 200 = rewrite (URL stays as rental.planetarysound.com), not a redirect.
+# Asset paths (/styles.css, /assets/*, /script.js) fall through naturally
+# because they aren't matched by this rule — CF Pages serves them from project root.
+https://rental.planetarysound.com/  /rental.html  200
