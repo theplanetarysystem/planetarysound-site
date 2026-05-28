@@ -1,0 +1,20 @@
+# Verify/debug artifacts
+_verify-*.png
+_debug-*.png
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs / local
+*.log
+.env
+.env.local
