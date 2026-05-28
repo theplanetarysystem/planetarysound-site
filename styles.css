@@ -944,46 +944,152 @@ section {
 }
 
 /* Packages section */
-.packages { background: var(--bg-rise); }
+.packages {
+  background: var(--bg-rise);
+}
 .pricing-grid {
   display: grid;
-  grid-template-columns: 1fr 1.15fr 1fr;
-  gap: 1px;
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 20px;
+  align-items: stretch;
 }
+
+/* ---- Price card base ---- */
 .price-card {
-  background: var(--bg-rise);
-  padding: 40px 32px;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-rise) 100%);
+  border: 1px solid var(--hairline-2);
+  padding: 56px 36px 40px;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: background .3s var(--ease);
+  overflow: hidden;
+  transition: transform .35s var(--ease),
+              border-color .35s var(--ease),
+              box-shadow .35s var(--ease),
+              background .35s var(--ease);
 }
-.price-card:hover {
-  background: var(--surface);
-}
-.price-card-featured {
-  background: var(--surface);
-  box-shadow: inset 0 0 0 1px var(--signal-glow);
-}
-.price-card-featured::before {
+.price-card::before {
+  /* Top accent strip */
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 1px;
+  height: 2px;
+  background: var(--hairline-2);
+  transition: background .35s var(--ease), box-shadow .35s var(--ease);
+}
+.price-card::after {
+  /* Corner tick */
+  content: "";
+  position: absolute;
+  top: 18px; left: 18px;
+  width: 12px; height: 12px;
+  border-top: 1px solid var(--text-mute);
+  border-left: 1px solid var(--text-mute);
+  opacity: .5;
+  transition: opacity .3s var(--ease), border-color .3s var(--ease);
+}
+.price-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--text-mute);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+}
+.price-card:hover::after {
+  opacity: 1;
+  border-color: var(--signal);
+}
+
+/* Ghost numeral floating behind content */
+.card-ghost-num {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 0.85;
+  letter-spacing: 0.005em;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ---- Featured (P-02) ---- */
+.price-card-featured {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34, 211, 238, 0.10), transparent 60%),
+    linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  border-color: var(--signal-dim);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.12) inset,
+    0 18px 50px rgba(0,0,0,0.35);
+}
+.price-card-featured::before {
   background: var(--signal);
-  box-shadow: 0 0 12px var(--signal-glow);
+  box-shadow: 0 0 18px var(--signal-glow);
+  height: 2px;
 }
-.price-card-quote {
+.price-card-featured::after {
+  border-top-color: var(--signal);
+  border-left-color: var(--signal);
+  opacity: 1;
+}
+.price-card-featured:hover {
+  border-color: var(--signal);
+  box-shadow:
+    0 0 0 1px var(--signal-glow) inset,
+    0 24px 60px rgba(0,0,0,0.5),
+    0 0 32px rgba(34, 211, 238, 0.18);
+}
+.price-card-featured .card-ghost-num {
+  color: rgba(34, 211, 238, 0.07);
+}
+
+/* Featured ribbon banner */
+.price-card-ribbon {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--signal);
   background: var(--bg);
+  border: 1px solid var(--signal);
+  padding: 5px 14px;
+  white-space: nowrap;
+  box-shadow: 0 0 16px var(--signal-glow);
+  z-index: 2;
 }
+.price-card-ribbon .ribbon-tick {
+  color: var(--signal);
+  opacity: .7;
+  margin: 0 4px;
+}
+.price-card-featured {
+  /* extra top padding to make room for ribbon */
+  padding-top: 72px;
+}
+
+/* ---- Quote card (P-03) ---- */
+.price-card-quote {
+  background: linear-gradient(180deg, var(--bg-rise) 0%, var(--bg) 100%);
+}
+.price-card-quote::before {
+  background: var(--text-mute);
+}
+
+/* ---- Card head ---- */
 .price-card-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
   margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
 }
 .price-card-head .card-label { margin-bottom: 0; }
 .price-badge {
@@ -991,7 +1097,7 @@ section {
   font-size: 8.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  padding: 5px 9px;
+  padding: 5px 10px;
   border: 1px solid var(--hairline-2);
   color: var(--text-dim);
   white-space: nowrap;
@@ -1005,68 +1111,121 @@ section {
   border-color: var(--text-mute);
   color: var(--text-mute);
 }
+
 .price-name {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(32px, 3.4vw, 44px);
-  line-height: 0.96;
+  font-size: clamp(34px, 3.5vw, 46px);
+  line-height: 0.94;
   letter-spacing: 0.005em;
   text-transform: uppercase;
-  margin: 0 0 24px 0;
+  margin: 0 0 28px 0;
   color: var(--text);
+  position: relative;
+  z-index: 1;
 }
-.price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
+
+/* ---- Price block ---- */
+.price-block {
+  margin: 0 0 28px;
+  position: relative;
+  z-index: 1;
+  padding: 24px 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
 }
-.price-row-quote .now {
-  font-size: clamp(28px, 3vw, 36px);
-  line-height: 1;
+.price-card-featured .price-block {
+  border-color: var(--hairline-2);
 }
-.was {
+.was-chip {
   font-family: var(--mono);
-  font-size: 16px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 12px;
+}
+.was-chip .was {
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--text-mute);
   text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
+  text-decoration-thickness: 2px;
   text-decoration-color: var(--signal-dim);
+  margin-left: 8px;
+}
+.now-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+.dollar {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(38px, 4vw, 52px);
+  color: var(--signal);
+  line-height: 1;
+  letter-spacing: 0.005em;
+  opacity: .85;
 }
 .now {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(48px, 5vw, 68px);
+  font-size: clamp(72px, 8.5vw, 116px);
   color: var(--signal);
-  line-height: 1;
-  letter-spacing: 0.005em;
+  line-height: 0.88;
+  letter-spacing: -0.005em;
+}
+.price-card-featured .now {
+  text-shadow: 0 0 24px rgba(34, 211, 238, 0.35);
 }
 .per {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--text-mute);
-}
-.price-blurb {
-  font-size: 14.5px;
-  line-height: 1.6;
   color: var(--text-dim);
-  margin: 0 0 24px 0;
-  flex-grow: 0;
+  margin-left: 4px;
 }
-.price-card .spec-list {
-  margin-top: 0;
-  margin-bottom: 28px;
+.save-chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid var(--signal-dim);
+  padding: 6px 12px;
 }
-.price-card .card-cta {
-  margin-top: auto;
-  align-self: flex-start;
+.save-chip-featured {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--bg);
+  font-weight: 700;
+  box-shadow: 0 0 16px var(--signal-glow);
 }
 
-.packages-foot {
-  margin-top: 32px;
+/* Quote-card price block variant */
+.price-block-quote {
+  text-align: left;
+}
+.quote-label {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(32px, 3.4vw, 44px);
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.quote-meta {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.22em;
@@ -1074,49 +1233,160 @@ section {
   color: var(--text-mute);
 }
 
-/* À la carte */
+/* ---- Blurb ---- */
+.price-blurb {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0 0 24px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Spec list with dot bullets ---- */
+.spec-list-pricing {
+  list-style: none;
+  margin: 0 0 32px 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+  border: 0;
+}
+.spec-list-pricing li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.spec-list-pricing li span {
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0;
+  color: var(--text-dim);
+  text-align: left;
+  font-weight: 400;
+}
+.spec-list-pricing .spec-dot {
+  color: var(--signal);
+  font-size: 6px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 6px;
+  margin-top: -2px;
+}
+.price-card-featured .spec-list-pricing li span:not(.spec-dot) {
+  color: var(--text);
+}
+
+/* ---- Per-card CTA (proper button) ---- */
+.price-card .card-cta {
+  margin-top: auto;
+  align-self: stretch;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Packages footnote ---- */
+.packages-foot {
+  margin-top: 36px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.packages-foot-tick {
+  color: var(--signal);
+}
+
+/* ============================================================
+   À LA CARTE
+   ============================================================ */
 .a-la-carte { background: var(--bg); }
 .alc-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--hairline);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
+  gap: 20px;
 }
 .alc-item {
-  background: var(--bg);
-  padding: 36px 28px;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--bg-rise) 100%);
+  border: 1px solid var(--hairline-2);
+  padding: 40px 32px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
 }
-.alc-item:hover { background: var(--bg-rise); }
-.alc-item .card-label { margin-bottom: 16px; }
+.alc-item::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--hairline-2);
+  transition: background .35s var(--ease);
+}
+.alc-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--text-mute);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+.alc-item:hover::before { background: var(--signal); }
+.alc-item .card-label { margin-bottom: 18px; }
 .alc-name {
   font-family: var(--display);
   font-weight: 400;
-  font-size: clamp(28px, 3vw, 38px);
+  font-size: clamp(32px, 3.2vw, 42px);
   line-height: 0.96;
   letter-spacing: 0.008em;
   text-transform: uppercase;
-  margin: 0 0 18px 0;
+  margin: 0 0 20px 0;
   color: var(--text);
 }
-.alc-price { margin-bottom: 18px; }
-.alc-price .now {
-  font-size: clamp(36px, 3.6vw, 48px);
+.alc-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0 0 20px 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  line-height: 1;
+}
+.alc-price-row .dollar {
+  font-size: clamp(28px, 3vw, 36px);
+}
+.alc-price-row .now {
+  font-size: clamp(52px, 5.4vw, 72px);
+}
+.alc-price-row .per {
+  margin-left: 4px;
 }
 .alc-blurb {
   font-size: 14px;
   line-height: 1.55;
   color: var(--text-dim);
-  margin: 0;
+  margin: 0 0 24px 0;
 }
 .alc-cta {
   margin-top: auto;
-  align-self: flex-start;
+  align-self: stretch;
+  justify-content: center;
 }
-.alc-more .card-label { color: var(--text-mute); }
+.alc-more {
+  background: linear-gradient(180deg, var(--bg-rise) 0%, var(--bg) 100%);
+}
 .alc-more .alc-name { color: var(--text-dim); }
 
 /* Rental form additions — date input theming */
@@ -1130,21 +1400,38 @@ section {
 @media (max-width: 1080px) {
   .pricing-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .alc-grid {
     grid-template-columns: 1fr 1fr;
   }
+  .card-ghost-num { font-size: 80px; }
 }
 @media (max-width: 720px) {
   .alc-grid {
     grid-template-columns: 1fr;
   }
-  .price-card,
+  .price-card {
+    padding: 48px 24px 32px;
+  }
+  .price-card-featured {
+    padding-top: 64px;
+  }
   .alc-item {
     padding: 32px 24px;
   }
   .price-card-head {
     flex-wrap: wrap;
+  }
+  .card-ghost-num {
+    font-size: 72px;
+    top: 8px;
+    right: 14px;
+  }
+  .price-card-ribbon {
+    font-size: 8.5px;
+    letter-spacing: 0.26em;
+    padding: 5px 10px;
   }
 }
 
