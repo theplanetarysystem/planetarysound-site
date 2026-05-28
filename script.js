@@ -1,5 +1,5 @@
 /* ============================================================
-   The Planetary System — planetarysound.com
+   The Planetary System: planetarysound.com
    - Three.js wireframe subwoofer with orbiting planetary ring
      (echoes the brand logo's Saturn-ring motif)
    - Topbar scroll state
@@ -41,7 +41,7 @@
   }
 
   /* ============================================================
-     THREE.JS — wireframe subwoofer + planetary ring
+     THREE.JS: wireframe subwoofer + planetary ring
      ============================================================ */
   if (typeof THREE === 'undefined') return;
 
@@ -82,7 +82,7 @@
   }
 
   /* ---------- The Subwoofer ---------- */
-  // Build a stylized cabinet — proportions of a real PA sub (taller than wide).
+  // Build a stylized cabinet: proportions of a real PA sub (taller than wide).
   var rig = new THREE.Group();
   scene.add(rig);
 
@@ -95,7 +95,7 @@
   var cabinet = new THREE.LineSegments(cabinetEdges, lineMat(lineColor, 0.85));
   rig.add(cabinet);
 
-  // Inner brace ring across the front baffle — adds detail.
+  // Inner brace ring across the front baffle: adds detail.
   var braceGeom = new THREE.BufferGeometry();
   var braceVerts = new Float32Array([
     -cabinetW / 2, 0, cabinetD / 2 + 0.001,
@@ -105,7 +105,7 @@
   var braceLine = new THREE.LineSegments(braceGeom, lineMat(lineColorDim, 0.4));
   rig.add(braceLine);
 
-  // Driver assembly — sits on the front face (positive Z).
+  // Driver assembly: sits on the front face (positive Z).
   var driver = new THREE.Group();
   driver.position.z = cabinetD / 2 + 0.001;
   rig.add(driver);
@@ -116,7 +116,7 @@
   var surroundOuterMesh = new THREE.LineSegments(surroundOuterEdges, lineMat(lineColor, 0.7));
   driver.add(surroundOuterMesh);
 
-  // Cone — invert a cone so apex points into the cabinet (negative Z in driver space).
+  // Cone: invert a cone so apex points into the cabinet (negative Z in driver space).
   var coneSegments = 28;
   var coneGeom = new THREE.ConeGeometry(0.72, 0.55, coneSegments, 1, true);
   var coneEdges = new THREE.EdgesGeometry(coneGeom);
@@ -125,7 +125,7 @@
   coneMesh.position.z = -0.275;            // pull apex inward
   driver.add(coneMesh);
 
-  // Radial spokes on the cone — adds the "speaker cone" reading.
+  // Radial spokes on the cone: adds the "speaker cone" reading.
   var spokesGeom = new THREE.BufferGeometry();
   var spokeCount = 24;
   var spokeVerts = [];
@@ -152,7 +152,7 @@
   innerRingMesh.position.z = -0.55;
   driver.add(innerRingMesh);
 
-  // Dust cap — small hemisphere bumping outward.
+  // Dust cap: small hemisphere bumping outward.
   var dustGeom = new THREE.SphereGeometry(0.12, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2);
   var dustEdges = new THREE.EdgesGeometry(dustGeom);
   var dustMesh = new THREE.LineSegments(dustEdges, lineMat(lineColor, 0.65));
@@ -160,7 +160,7 @@
   dustMesh.position.z = 0;
   driver.add(dustMesh);
 
-  // Port slot — rectangular outline below the driver on the front face.
+  // Port slot: rectangular outline below the driver on the front face.
   var portGeom = new THREE.BufferGeometry();
   var px = 0.55, py = 0.18;
   var portYOffset = -1.05;
@@ -187,7 +187,7 @@
     var g = new THREE.BufferGeometry().setFromPoints(pts);
     return new THREE.Line(g, lineMat(color, opacity));
   }
-  // Three concentric ring lines — gives the Saturn-ring banding.
+  // Three concentric ring lines: gives the Saturn-ring banding.
   var ring1 = buildEllipseRing(2.95, 2.95, 96, accentColor, 0.85);
   var ring2 = buildEllipseRing(3.20, 3.20, 96, accentColorDim, 0.55);
   var ring3 = buildEllipseRing(3.42, 3.42, 96, accentColor, 0.35);
@@ -245,7 +245,7 @@
     rig.rotation.x = THREE.MathUtils.degToRad(-6) + breathe + pointerY * 0.6;
     rig.position.x = pointerX * 0.4;
 
-    // Cone sway — like it's just slightly resonating with the room.
+    // Cone sway: like it's just slightly resonating with the room.
     driver.rotation.z = Math.sin(t * 1.4) * 0.01;
 
     // Planetary ring counter-rotates slowly.
@@ -258,7 +258,7 @@
   }
   rafId = requestAnimationFrame(frame);
 
-  // Pause when tab hidden — save battery / GPU.
+  // Pause when tab hidden: save battery / GPU.
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
       if (rafId) cancelAnimationFrame(rafId);

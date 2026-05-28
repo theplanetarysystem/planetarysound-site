@@ -1,5 +1,5 @@
 /* ============================================================
-   The Planetary System — planetarysound.com
+   The Planetary System: planetarysound.com
    Industrial audio aesthetic: deep-space blue-black, electric
    cyan signal accent, condensed industrial display + technical
    geometric body. Audio-engineering / touring lineage.
@@ -18,7 +18,7 @@
   --text-dim:  #8893a8;   /* cool slate */
   --text-mute: #4a5566;
 
-  --signal:    #22d3ee;   /* electric cyan — sound/signal */
+  --signal:    #22d3ee;   /* electric cyan: sound/signal */
   --signal-dim:#0e8aa3;
   --signal-glow:rgba(34, 211, 238, 0.18);
 
@@ -244,7 +244,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; color: inher
 }
 .prose .signal { color: var(--signal); font-weight: 500; }
 
-/* Section / card labels — bracketed, technical */
+/* Section / card labels: bracketed, technical */
 .eyebrow,
 .section-label,
 .card-label {
@@ -359,7 +359,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; color: inher
     radial-gradient(ellipse 80% 60% at 20% 100%, rgba(34, 211, 238, 0.03), transparent 50%),
     var(--bg);
 }
-/* Grid line backdrop — technical drawing feel */
+/* Grid line backdrop: technical drawing feel */
 .hero::after {
   content: "";
   position: absolute;
@@ -437,7 +437,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; color: inher
   100% { transform: translateY(280%); opacity: 0; }
 }
 
-/* Tech readout strip — like a spec sheet under the hero */
+/* Tech readout strip: like a spec sheet under the hero */
 .hero-readout {
   position: absolute;
   left: var(--gutter);
@@ -504,7 +504,7 @@ section {
   position: relative;
 }
 .system-card::before {
-  /* Corner ticks — technical drawing markers */
+  /* Corner ticks: technical drawing markers */
   content: "";
   position: absolute;
   top: 20px; left: 20px;
@@ -555,7 +555,7 @@ section {
   position: relative;
 }
 .systems-live::before {
-  /* faint scan-line strip at top — feels like equipment chassis */
+  /* faint scan-line strip at top: feels like equipment chassis */
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -937,7 +937,7 @@ section {
    RENTAL PAGE (/rental.html, rental.planetarysound.com)
    ============================================================ */
 
-/* Hero — no Three.js, content gets full width */
+/* Hero: no Three.js, content gets full width */
 .rental-hero .hero-canvas-wrap { display: none; }
 .rental-hero-content {
   max-width: 900px;
@@ -1389,13 +1389,13 @@ section {
 }
 .alc-more .alc-name { color: var(--text-dim); }
 
-/* Rental form additions — date input theming */
+/* Rental form additions: date input theming */
 .field input[type="date"] {
   color-scheme: dark;
 }
 
 /* ============================================================
-   RENTAL — RESPONSIVE
+   RENTAL: RESPONSIVE
    ============================================================ */
 @media (max-width: 1080px) {
   .pricing-grid {
