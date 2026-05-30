@@ -949,7 +949,7 @@ section {
 }
 .pricing-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   align-items: stretch;
 }
@@ -1397,6 +1397,11 @@ section {
 /* ============================================================
    RENTAL: RESPONSIVE
    ============================================================ */
+@media (max-width: 1400px) {
+  .pricing-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 @media (max-width: 1080px) {
   .pricing-grid {
     grid-template-columns: 1fr;
